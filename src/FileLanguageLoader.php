@@ -8,7 +8,8 @@ class FileLanguageLoader extends LanguageLoader {
 	}
 	
 	public function loadTable($table) {
-		$contents = file_get_contents($this->dir."/$table.l10n");
+		$contents = file_get_contents($this->dir."/$table.strings");
+		return $this->parse($contents);
 	}
 	
 	public function parse($content) {
