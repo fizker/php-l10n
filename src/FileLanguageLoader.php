@@ -14,10 +14,24 @@ class FileLanguageLoader extends LanguageLoader {
 		return $this->parse($contents);
 	}
 	
+	public function stripComments($content) {
+		$content = preg_replace(
+			'!(//.*?)|(/\*(\s|.)*\*/)!U',
+			'',
+			$content
+		);
+		return $content;
+	}
+	
 	public function parse($content) {
+		$content = $this->stripComments($content);
 		$lines = explode("\n", $content);
 		$table = array();
 		foreach($lines as $content) {
+			$content = trim($content);
+			if(!$content) {
+				continue;
+			}
 			$split = explode('=', $content);
 			$table[$this->trim($split[0])] = $this->trim($split[1]);
 		}
