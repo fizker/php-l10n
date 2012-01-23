@@ -1,6 +1,8 @@
 <?php
 namespace l10n;
 
+require_once(__DIR__.'/LanguageLoader.php');
+
 class FileLanguageLoader extends LanguageLoader {
 	private $dir;
 	public function __construct($dir) {

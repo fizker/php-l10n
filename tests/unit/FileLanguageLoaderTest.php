@@ -1,6 +1,5 @@
 <?php
 
-include_once(__DIR__.'/../../src/LanguageLoader.php');
 include_once(__DIR__.'/../../src/FileLanguageLoader.php');
 
 use \l10n\FileLanguageLoader;
