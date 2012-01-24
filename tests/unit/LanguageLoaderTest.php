@@ -51,6 +51,98 @@ class LanguageLoaderTest extends PHPUnit_Framework_TestCase {
 		
 		$fakeLoader->get('a', 'b');
 	}
+
+	/**
+	 * @test
+	 */
+	public function get_MultipleParams_ParamsAreUsed() {
+		$fakeLoader = new TestableLanguageLoader(array('a'=> 
+			array('b'=> 'c $& d $& e')
+		));
+		
+		$result = $fakeLoader->get('a', 'b', '1', 2);
+		
+		$this->assertEquals('c 1 d 2 e', $result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function get_ParamsAsArray_ParamsAreUsed() {
+		$fakeLoader = new TestableLanguageLoader(array('a'=> 
+			array('b'=> 'c $1 d $2 e')
+		));
+		
+		$result = $fakeLoader->get('a', 'b', array('1', 2));
+		
+		$this->assertEquals('c 1 d 2 e', $result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function applyParams_NamedParams_TheRightParamsAreReplaced() {
+		$loader = new TestableLanguageLoader(array());
+		
+		$result = $loader->applyParams('a $2 b $1 c', array(2, 1));
+		
+		$this->assertEquals('a 1 b 2 c', $result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function applyParams_MixedParamTypes_OnlyUnnamedAreUsed() {
+		$loader = new TestableLanguageLoader(array());
+		
+		$result = $loader->applyParams('a $& b $1 c', array(2, 1));
+		
+		$this->assertEquals('a 2 b $1 c', $result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function applyParams_NamedParamsAreRepeated_ValueIsReused() {
+		$loader = new TestableLanguageLoader(array());
+		
+		$result = $loader->applyParams('a $2 b $1 c $2', array(2, 1));
+		
+		$this->assertEquals('a 1 b 2 c 1', $result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function applyParams_NamedParamsExceedsList_BlankIsUsed() {
+		$loader = new TestableLanguageLoader(array());
+		
+		$result = $loader->applyParams('a $2 b $1 c $2', array(1));
+		
+		$this->assertEquals('a  b 1 c ', $result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function applyParams_NamedParamsAreUnused_ValuesAreUnused() {
+		$loader = new TestableLanguageLoader(array());
+		
+		$result = $loader->applyParams('a $2 b', array(2, 1));
+		
+		$this->assertEquals('a 1 b', $result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function applyParams_UnnamedParamsAreRepeated_RestAreBlank() {
+		$loader = new TestableLanguageLoader(array());
+		
+		$result = $loader->applyParams('a $& b $& c', array(2));
+		
+		$this->assertEquals('a 2 b  c', $result);
+	}
 }
 
 class TestableLanguageLoader extends LanguageLoader {
