@@ -17,10 +17,10 @@ Working with the FileLanguageLoader
 To see a live version, check the tests/integration folder, where it is used
 in some integration tests.
 
-The following code snippet shows how to use the code:
+The following code snippet shows how to use the library:
 
 	<?php
-	include(__DIR__.'/lib/dir/php-l10n/index.php');
+	include(__DIR__.'/lib-dir/php-l10n/index.php');
 	
 	$lang = new \l10n\FileLanguageLoader(__DIR__.'/lang/pak/dir');
 	
@@ -41,3 +41,10 @@ Such a file might look like this:
 
 	"key" = "value";
 	"another key" = "another value";
+
+
+Running the tests
+-----------------
+
+To run the unit tests, first run `install-tests`. Then simply running
+`runTests.php` will execute the tests.
