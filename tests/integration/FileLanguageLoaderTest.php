@@ -1,6 +1,5 @@
 <?php
 
-include_once(__DIR__.'/../../src/LanguageLoader.php');
 include_once(__DIR__.'/../../src/FileLanguageLoader.php');
 
 use \l10n\FileLanguageLoader;
@@ -14,9 +13,9 @@ class FileLanguageLoaderIntegrationTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function get_ExistingFile_TableIsLoadedCorrectly() {
 		$loader = new FileLanguageLoader(__DIR__.'/../data');
-		
+
 		$result = $loader->get('file', 'a');
-		
+
 		$this->assertEquals('A', $result);
 	}
 }

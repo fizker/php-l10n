@@ -33,9 +33,7 @@ folder, and return the value for the key `key`.
 The folder containing the language files should be a flat directory, where
 each file has the extension `.strings` and is named after the table wanted.
 
-The file contents should follow the same syntax that 
-[Apple uses in Cocoa](http://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Functions/Reference/reference.html#//apple_ref/c/macro/NSLocalizedStringFromTable).
-__NOTE: There is one exception: This library does not currently support comments!__
+[The file contents should follow the same syntax that Apple uses in Cocoa](http://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Functions/Reference/reference.html#//apple_ref/c/macro/NSLocalizedStringFromTable).
 
 Such a file might look like this:
 
